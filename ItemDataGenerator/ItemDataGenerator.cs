@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using System.IO;
 
 [ModTitle("ItemDataGenerator")]
 [ModDescription("Generates a detailed list of all items and their settings")]
@@ -10,10 +11,11 @@ using UnityEngine;
 [RaftVersion("Update 5")]
 public class ItemDataGenerator : Mod
 {
-    string path = @"D:\items.csv";
+    string path = @"\mods\items.csv";
 
     private void Start()
     {
+        path = Directory.GetCurrentDirectory() + path;
         RConsole.Log("ItemDataGenerator loaded!");
         Generate();
         RConsole.Log("ItemData Generated! at " + path);
@@ -21,7 +23,7 @@ public class ItemDataGenerator : Mod
 
     private void Generate()
     {
-        using (System.IO.StreamWriter file = new System.IO.StreamWriter(path, false))
+        using (StreamWriter file = new StreamWriter(path, false))
         {
             //heading information
             file.WriteLine("Name,UniqueName,UniqueIndex,MaxUses,hideFlags," +
